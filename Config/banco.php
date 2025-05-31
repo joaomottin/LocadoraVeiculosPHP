@@ -1,20 +1,21 @@
 <?php
-    
-    abstract class Banco {
-        private static $conn;
+class Banco {
+    private static $conn;
 
-        public static function getConn()
-        {
-            if (!isset(self::$conn)) {
-                self::$conn = new mysqli("localhost", "root", "", "locadora-php");
+    public static function getConn() {
+        if (!self::$conn) {
+            $host = "localhost"; 
+            $user = "root";      
+            $pass = "";          
+            $db   = "locadora"; 
 
-                // Verifica se houve erro de conexão
-                if (self::$conn->connect_error) {
-                    die("Erro ao conectar ao banco: " . self::$conn->connect_error);
-                }
+            self::$conn = new mysqli($host, $user, $pass, $db);
+
+            if (self::$conn->connect_error) {
+                die("Erro de conexão: " . self::$conn->connect_error);
             }
-            return self::$conn;
         }
-    }
 
-?>
+        return self::$conn;
+    }
+}

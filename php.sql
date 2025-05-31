@@ -8,15 +8,12 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
-CREATE TABLE `clientes`(
-  `id` int(11) NOT NULL,
-  `cliente` varchar(80) NOT NULL,
-  `nome` varchar(80) NOT NULL,
-  `senha` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE clientes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cliente VARCHAR(50) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL
+);
 
-INSERT INTO `clientes` (`id`, `cliente`, `nome`, `senha`) VALUES
-(1, 'thiago', 'thigas', '123'),
-(2, 'luiza', 'luizinha', '123');
+INSERT INTO clientes (cliente, senha) VALUES ('usuario1', 'senha123');
 
 -- --------------------------------------------------------
