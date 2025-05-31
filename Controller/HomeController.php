@@ -3,34 +3,36 @@
 require_once __DIR__ . "/../Model/Cliente.php";
 
 class HomeController {
+
     static function login() {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $error = '';
+
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
-            $cliente_formulario = $_POST['cliente'] ?? null;
+            $cliente_formulario = $_POST['usuario'] ?? null;
             $senha_formulario = $_POST['senha'] ?? null;
 
             if (is_null($cliente_formulario) || is_null($senha_formulario)) {
-                echo "Fazer Login...";
+                $error = "Preencha todos os campos";
             } else {
-
                 $resp = Cliente::fazerLogin($cliente_formulario, $senha_formulario);
 
                 if ($resp) {
-                    echo "Sucesso!";
                     header("Location: dashboard");
+                    exit;
                 } else {
-                    echo "Erro X.x";
+                    $error = "Usuário ou senha incorretos";
                 }
             }
         }
-
         include __DIR__ . "/../View/login.php";
     }
 
     static function index() {
         HomeController::login();
     }
-
-
 }
